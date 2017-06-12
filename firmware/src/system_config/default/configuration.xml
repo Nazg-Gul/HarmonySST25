@@ -287,7 +287,6 @@
         <Name dnOrder="0">nvm_disk_images.h</Name>
         <Path dnOrder="1">Header Files/app/system_config/default/framework/system/fs</Path>
         <Checksum dnOrder="2">B00B90E021F15FFD6B0B1B7F2D0650A5</Checksum>
-        <ProjectFileChecksum dnOrder="3">E303429915A62A54A2696DCCD03BDC93</ProjectFileChecksum>
       </Template>
       <Template dnOrder="1">
         <Name dnOrder="0">sys_ports_static.c</Name>
@@ -331,7 +330,6 @@
         <Name dnOrder="0">drv_spi_tasks.c</Name>
         <Path dnOrder="1">Source Files/app/system_config/default/framework/driver/spi/dynamic</Path>
         <Checksum dnOrder="2">B8D534FC99E9DAC9CE3CE2AFE17C3907</Checksum>
-        <ProjectFileChecksum dnOrder="3">C6BDE6077929F8CDAEBFC6CC36C496FF</ProjectFileChecksum>
       </Template>
       <Template dnOrder="10">
         <Name dnOrder="0">sys_devcon.h</Name>
@@ -351,7 +349,7 @@
       <Template dnOrder="13">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">1F132D72C8455744D51310DE38235432</Checksum>
+        <Checksum dnOrder="2">F66C8C58E49A2B836445F41591C980F8</Checksum>
       </Template>
       <Template dnOrder="14">
         <Name dnOrder="0">app.h</Name>
@@ -376,13 +374,11 @@
         <Name dnOrder="0">drv_spi_master_ebm_tasks.c</Name>
         <Path dnOrder="1">Source Files/app/system_config/default/framework/driver/spi/dynamic</Path>
         <Checksum dnOrder="2">DF2E896C1FA81F4B5056E3B22DD340B6</Checksum>
-        <ProjectFileChecksum dnOrder="3">CF33BBF1ABACDBD2EC93B451D275C5F9</ProjectFileChecksum>
       </Template>
       <Template dnOrder="19">
         <Name dnOrder="0">drv_spi_api.c</Name>
         <Path dnOrder="1">Source Files/app/system_config/default/framework/driver/spi/dynamic</Path>
         <Checksum dnOrder="2">14808E10D15B0CCA85788FD513377478</Checksum>
-        <ProjectFileChecksum dnOrder="3">C988C1FA0CA1D5005D8DD008C5933F76</ProjectFileChecksum>
       </Template>
       <Template dnOrder="20">
         <Name dnOrder="0">sys_clk_pic32mx.c</Name>

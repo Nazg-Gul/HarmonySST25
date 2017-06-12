@@ -78,6 +78,22 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 APP_DATA appData;
 
+const SYS_FS_MEDIA_FUNCTIONS sst25MediaFunctions =
+{
+    .mediaStatusGet     = DRV_SST25_MediaIsAttached,
+    .mediaGeometryGet   = DRV_SST25_GeometryGet,
+    .sectorRead         = DRV_SST25_BlockRead,
+    .sectorWrite        = DRV_SST25_BlockEraseWrite,
+    .eventHandlerset    = DRV_SST25_BlockEventHandlerSet,
+    .commandStatusGet   = (void *)DRV_SST25_CommandStatus,
+    .Read               = DRV_SST25_BlockRead,
+    .erase              = DRV_SST25_BlockErase,
+    .addressGet         = DRV_SST25_AddressGet,
+    .open               = DRV_SST25_Open,
+    .close              = DRV_SST25_Close,
+    .tasks              = DRV_SST25_Tasks,
+};
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
@@ -133,7 +149,7 @@ void APP_Tasks ( void )
         {
             bool appInitialized = true;
             if (appInitialized) {
-              SYS_CONSOLE_MESSAGE("System initialization finished.\r\n");
+                SYS_CONSOLE_MESSAGE("System initialization finished.\r\n");
             }
             appData.state = APP_STATE_SERVICE_TASKS;
             break;
@@ -141,6 +157,43 @@ void APP_Tasks ( void )
 
         case APP_STATE_SERVICE_TASKS:
         {
+            static bool fs_registered = false;
+            static bool fs_mounted = false;
+            static bool fs_tested = false;
+            if (!fs_registered &&
+                 DRV_SST25_Status(sysObj.drvSst25Obj0) == SYS_STATUS_READY) {
+                 SYS_CONSOLE_MESSAGE("Register SST25 with SysFs.\r\n");
+                 if (SYS_FS_MEDIA_MANAGER_Register((SYS_MODULE_OBJ)DRV_SST25_INDEX_0,
+                                                   (SYS_MODULE_INDEX)DRV_SST25_INDEX_0,
+                                                   &sst25MediaFunctions,
+                                                   SYS_FS_MEDIA_TYPE_SPIFLASH) != SYS_FS_MEDIA_HANDLE_INVALID) {
+                   SYS_CONSOLE_MESSAGE("    => SUCCESS!\r\n");
+                 }
+                 fs_registered = true;
+                 break;
+            }
+            if (fs_registered && !fs_mounted) {
+                if (SYS_FS_Mount("/dev/mtda1", "/mnt/myDrive", FAT, 0, NULL) != 0) {
+                    /* The disk could not be mounted. Try mounting again until
+                     * mount is successful. */
+                } else {
+                    SYS_CONSOLE_MESSAGE("MOUNTED.\r\n");
+                    fs_mounted = true;
+                    break;
+                }
+            }
+            if (fs_mounted && !fs_tested) {
+                uint32_t totalSectors, freeSectors;
+                SYS_FS_RESULT res;
+                res = SYS_FS_DriveSectorGet("/mnt/myDrive", &totalSectors, &freeSectors);
+                if (res == SYS_FS_RES_SUCCESS) {
+                    SYS_CONSOLE_PRINT("Total sectors : %d.\r\n", totalSectors);
+                    SYS_CONSOLE_PRINT("Free sectors  : %d.\r\n", freeSectors);
+                } else {
+                  SYS_CONSOLE_MESSAGE("Error in SYS_FS_DriveSectorGet.\r\n");
+                }
+                fs_tested = true;
+            }
             break;
         }
 

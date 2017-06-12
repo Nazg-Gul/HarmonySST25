@@ -230,7 +230,6 @@ extern "C" {
 #define DRV_SST25_BUFFER_OBJ_NUMBER                       5
 #define DRV_SST25_CLIENTS_NUMBER                          2
 #define DRV_SST25_INSTANCES_NUMBER                        1
-#define DRV_SST25_SYS_FS_REGISTER
 
 #define DRV_SST25_POWER_STATE_IDX0                        SYS_MODULE_POWER_RUN_FULL
 #define DRV_SST25_SPI_DRIVER_INSTANCE_IDX0                0
