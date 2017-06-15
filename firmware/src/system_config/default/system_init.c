@@ -208,7 +208,7 @@ SYS_CONSOLE_INIT consUsartInit0 =
 SYS_DEBUG_INIT debugInit =
 {
     .moduleInit = {0},
-    .errorLevel = SYS_ERROR_DEBUG
+    .errorLevel = SYS_ERROR_WARNING
 };
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SYS_FS Initialization Data">

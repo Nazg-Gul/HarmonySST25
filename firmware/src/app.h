@@ -86,13 +86,25 @@ extern "C" {
 
 typedef enum
 {
-    /* Application's state machine's initial state. */
-    APP_STATE_INIT=0,
+    APP_STATE_INIT=0,  /* Application's state machine's initial state. */
 
-    APP_STATE_SERVICE_TASKS,
+    APP_REGISTER,
+    APP_MOUNT_DISK,      /* The app mounts the disk */
+    APP_FORMAT_DISK,     /* The app formats the disk. */
+    APP_OPEN_FILE,       /* The app opens the file */
+    APP_WRITE_TO_FILE,   /* The app writes data to the file */
+    APP_FLUSH_FILE,      /* The app performs a file sync operation. */
+    APP_READ_FILE_STAT,  /* The app checks the file status */
+    APP_READ_FILE_SIZE,  /* The app checks the file size */
+    APP_DO_FILE_SEEK,    /* The app does a file seek to the end of the file. */
+    APP_CHECK_EOF,       /* The app checks for EOF */
+    APP_DO_ANOTHER_FILE_SEEK,  /* The app does another file seek, to move file
+                                * pointer to the beginning of the file. */
+    APP_READ_FILE_CONTENT,     /* The app reads and verifies the written data. */
+    APP_CLOSE_FILE,            /* The app closes the file. */
 
-    /* TODO: Define states used by the application state machine. */
-
+    APP_IDLE,    /* The app idles */
+    APP_ERROR,   /* An app error has occurred */
 } APP_STATES;
 
 // *****************************************************************************
@@ -112,6 +124,11 @@ typedef struct
 {
     /* The application's current state */
     APP_STATES state;
+
+    SYS_FS_HANDLE fileHandle;    /* SYS_FS File handle */
+    uint8_t *data;               /* Application data buffer */
+    SYS_FS_FSTAT fileStatus;
+    long fileSize;
 } APP_DATA;
 
 
